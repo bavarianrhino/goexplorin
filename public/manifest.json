@@ -1,11 +1,11 @@
 {
-  "short_name": "Ionic App",
-  "name": "My Ionic App",
-  "icons": [
+    "short_name": "GoExplorin",
+    "name": "GoExplorin App",
+    "icons": [
     {
-      "src": "assets/icon/favicon.png",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+    "src": "assets/icon/explore-icon.jpg",
+    "sizes": "600x600",
+    "type": "image/jpg"
     },
     {
       "src": "assets/icon/icon.png",

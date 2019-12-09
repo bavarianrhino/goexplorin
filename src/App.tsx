@@ -10,7 +10,7 @@ import Login from './pages/login/Login'
 import Leaderboard from './pages/leaderboard/Leaderboard'
 import Details from './pages/leaderboard/Details'
 import Mapper from './pages/mapper/Mapper'
-import Logout from './pages/mogout/Logout'
+import Logout from './pages/logout/Logout'
 
 //--------- Core & Basic CSS ---------//
 import '@ionic/react/css/core.css';

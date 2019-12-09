@@ -6,14 +6,14 @@ const Tab2: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab Two</IonTitle>
+          <IonTitle>Leaderboard</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
         <IonList>
-          <IonItem routerLink="/tab2/details">
+          <IonItem routerLink="/leaderboard/details">
             <IonLabel>
-              <h2>Go to detail</h2>
+              <h2>Go to leaderboard detail</h2>
             </IonLabel>
           </IonItem>
         </IonList>

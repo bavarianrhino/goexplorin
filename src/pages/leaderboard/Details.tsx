@@ -9,11 +9,11 @@ const Details: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/tab2" />
           </IonButtons>
-          <IonTitle>Detail</IonTitle>
+          <IonTitle>Leaderboard Details</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <p>Details</p>
+        <p> Leaderboard Details</p>
       </IonContent>
     </IonPage>
   );

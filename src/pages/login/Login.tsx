@@ -1,19 +1,25 @@
 import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg } from '@ionic/react';
 import React, { Component } from 'react';
-import './Login.css';
-// import { Twitter } from 'capacitor-twitter';
-// const twitter = new Twitter();
+import './login.css';
+import { UserSession } from 'blockstack';
+import { appConfig } from '../../utils/constants'; //appConfig
+import { BlockstackButton } from 'react-blockstack-button';
+
 const INITIAL_STATE = {
-  loggedIn: false,
+    userSession: new UserSession({ appConfig }),
+    signedIn: false,
+    pendingSignIn: false
 };
 
 class Login extends Component {
-  state: any = {};
-  props: any = {};
-  constructor(props: any) {
-    super(props);
-    this.state = { ...INITIAL_STATE };
+    state: any = {};
+    props: any = {};
+    constructor(props: any) {
+        super(props);
+        this.state = { ...INITIAL_STATE };
+        // history: this.props,
   }
+
   async getCurrentState() {
     // twitter
     //   .isLogged()
@@ -21,8 +27,12 @@ class Login extends Component {
     //   .catch(err => console.log(err));
   }
 
-  async signIn(): Promise<void> {
-    const { history } = this.props;
+  async signInTesting(e:any): Promise<void> {
+    e.preventDefault()
+    const { history } = this.props
+    console.log(history)
+    // console.log(new History())
+    console.log(new History)
     // twitter
     //   .login()
     //   .then(result => {
@@ -35,42 +45,158 @@ class Login extends Component {
     //   .catch(err => console.log(err));
   }
 
-  render() {
-    return (
-      <IonPage>
-        <IonHeader>
-          <IonToolbar color="primary">
-            <IonTitle>Ionic React App</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent className="ion-padding">
-          <IonRow>
-            <IonCol className="text-center">
-              <IonImg className="title-img" src="assets/capacitor.png" ></IonImg>
-            </IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="text-center">
-              <IonText className="title">
-                Twitter Login in Capacitor app
-              </IonText>
-            </IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol className="text-center">
-              <IonText className="text-center">
-                By Enappd Team
-              </IonText>
-            </IonCol>
-          </IonRow>
+    async isUserSignedIn(): Promise<void> {
+        console.log('isUserSignedIn function called')
+        const signedIn = await this.state.userSession.isUserSignedIn()
+        this.setState({
+            ...this.state,
+            signedIn: signedIn
+        })
+    }
 
-          <IonButton className="login-button" onClick={() => this.signIn()} expand="full" fill="solid" color="primary">
-            Login with Twitter
-        </IonButton>
-        </IonContent>
-      </IonPage>
-    )
-  }
+    async isSignInPending(): Promise<void> {
+        console.log('isSignInPending function called')
+        const pendingSignIn = await this.state.userSession.isSignInPending()
+        this.setState({
+            ...this.state,
+            pendingSignIn: pendingSignIn
+        })
+    }
+
+    async handleLoginClick(e:any): Promise<void> {
+        e.preventDefault()
+        console.log('Blockstack Login Clicked')
+        console.log(this.state)
+        const data = await this.state.userSession.redirectToSignIn()
+        console.log(data)
+        //     .then((res: { authToken: any; userSession: any; userName: any; }) => {
+        //         console.log('result', res);
+        //         this.props.history.push({
+        //             pathname: '/map',
+        //             state: { token: res.authToken, userId: res.userSession, userName: res.userName }
+        //         });
+        //     }) //{ authToken:string, authTokenSecret:string, userName:string, userID:string }
+        // .catch((err: any) => console.log(err));
+    }
+    
+
+    // handleClick2 = async (e: any) => {
+    //     const { userSession } = this.state
+    //     // const { userSession } = this.props
+    //     const userData1 = userSession.isUserSignedIn()
+    //     const userData2 = userSession.isSignInPending()
+    //     console.log(userData1, " - Signed In?")
+    //     console.log(userData2, " - Pending Sign In?")
+    //     this.setState({ loading: true})
+    //     if((!userData1 && !userData2) || (!userData1 && userData2)) {
+    //         debugger
+    //         try {
+    //             await this.userPendingSignIn()
+    //         } catch (err) {
+    //             await this.userPendingSignIn()
+    //         }
+    //         debugger
+    //         if((!userData1 && !userData2) || (!userData1 && userData2)) {
+            
+    //             try {
+    //                 await this.userPendingSignIn()
+    //             } catch (err) {
+    //                 await this.userPendingSignIn()
+    //             }
+    //             if(userData1){
+    //                 debugger
+    //                 this.completedSignIn()
+    //             }
+    //         }
+            
+    //     }
+    //     debugger
+    //         if((!userData1 && !userData2) || (!userData1 && userData2)) {
+            
+    //             try {
+    //                 await this.userPendingSignIn()
+    //             } catch (err) {
+    //                 await this.userPendingSignIn()
+    //             }
+    //             if(userData1){
+    //                 debugger
+    //                 this.completedSignIn()
+    //             }
+    //         }
+    //         this.setState({ loading: false})
+    // }
+
+    // userPendingSignIn = async () => {
+    //     const { userSession } = this.state
+    //     // const history = this.props
+    //     const userData1 = userSession.isUserSignedIn()
+    //     const userData2 = userSession.isSignInPending()
+    //     console.log(userData1, " - Signed In?")
+    //     console.log(userData2, " - Pending Sign In?")
+    //     this.setState({ loading: true})
+    //     debugger
+    //     try {
+    //         const needThisData = await userSession.handlePendingSignIn()
+    //         console.log(needThisData)
+    //         // history.push('/');
+    //         // tpreventDefault()
+    //         // history.pushState(needThisData, 'App', '/')
+    //         // this.props.history.push('/map')
+    //         this.setState({
+    //             ...this.state,
+    //             needThisData: needThisData
+    //         })
+    //         console.log(this.state.needThisData)
+            
+    //     } catch(err) {
+    //         userSession.redirectToSignIn()
+    //     }
+    // }
+
+    render() {
+        return (
+            <IonPage>
+                <IonHeader>
+                    <IonToolbar color="primary">
+                        <IonTitle>Go Explorin'</IonTitle>
+                    </IonToolbar>
+                </IonHeader>
+
+                <IonContent className="ion-padding">
+                    <IonRow>
+                        <IonCol className="text-center">
+                            {/* <IonImg className="title-img" src="assets/capacitor.png" ></IonImg> */}
+                        </IonCol>
+                    </IonRow>
+                    <IonRow>
+                        <IonCol className="text-center">
+                            <IonText className="title"> Blockstack Login in Ionic/Capacitor App </IonText>
+                        </IonCol>
+                    </IonRow>
+    
+                    {/* <IonButton className="login-button" onClick={() => this.signIn()} expand="full" fill="solid" color="primary"> Login with Twitter</IonButton> */}
+
+                    <IonRow class="ion-justify-content-center" style={{ 'margin': '40% auto' }}>
+                        <IonCol size='auto'>
+                            {/* {(loading) ? <Loading /> : */}
+                                {/* (this.state.userSession.isSignInPending()) ? (this.handleClick2(null)) : */}
+                                    <BlockstackButton onClick={(e) => {this.handleLoginClick(e)}} />
+                                    <BlockstackButton onClick={(e) => {this.signInTesting(e)}} />
+                            {/* } */}
+                        </IonCol>
+                    </IonRow>
+
+                    <IonRow>
+                        <IonCol className="text-center">
+                            <IonText className="text-center"> Blockstack Info Buttons Go Here</IonText>
+                            <br />
+                            <IonText className="text-center"> Blockstack Info Buttons Go Here</IonText>
+                        </IonCol>
+                    </IonRow>
+                </IonContent>
+            </IonPage>
+        )
+    }
 }
 
 export default Login;

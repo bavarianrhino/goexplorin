@@ -37,7 +37,8 @@ const App: React.FC = () => (
           <Route path="/leaderboard/details" component={Details} />
           <Route path="/mapper" component={Mapper} exact={true} />
           <Route path="/logout" component={Logout} />
-          <Route path="/" render={() => <Redirect to="/login" />} exact={true} />
+          <Route path="/" render={() => <Redirect to="/mapper" />} exact={true} />
+          {/* <Route path="/" render={() => <Redirect to="/login" />} exact={true} /> */}
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="leaderboard" href="/leaderboard">

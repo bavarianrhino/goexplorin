@@ -1,4 +1,4 @@
-import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonImg } from '@ionic/react';
+import { IonContent, IonText, IonRow, IonCol, IonHeader, IonPage, IonTitle, IonToolbar, withIonLifeCycle, IonButton, IonImg } from '@ionic/react';
 import React, { Component } from 'react';
 import './login.css';
 import { UserSession } from 'blockstack';
@@ -7,6 +7,7 @@ import { BlockstackButton } from 'react-blockstack-button';
 
 const INITIAL_STATE = {
     userSession: new UserSession({ appConfig }),
+    session: undefined,
     signedIn: false,
     pendingSignIn: false
 };
@@ -16,34 +17,15 @@ class Login extends Component {
     props: any = {};
     constructor(props: any) {
         super(props);
-        this.state = { ...INITIAL_STATE };
+        this.state = { ...this.state,
+            ...INITIAL_STATE };
         // history: this.props,
   }
 
-  async getCurrentState() {
-    // twitter
-    //   .isLogged()
-    //   .then(r => console.log(r)) // returns { in: boolean, out: boolean }
-    //   .catch(err => console.log(err));
-  }
-
-  async signInTesting(e:any): Promise<void> {
-    e.preventDefault()
-    const { history } = this.props
-    console.log(history)
-    // console.log(new History())
-    console.log(new History)
-    // twitter
-    //   .login()
-    //   .then(result => {
-        // console.log('result', result);
-        // history.push({
-        //   pathname: '/home',
-        //   state: { token: result.authToken, userId: result.userID, userName: result.userName }
-        // });
-    //   }) // { authToken:string, authTokenSecret:string, userName:string, userID:string }
-    //   .catch(err => console.log(err));
-  }
+    async ionViewWillEnter(){
+        this.isUserSignedIn()
+        this.isSignInPending()
+    }
 
     async isUserSignedIn(): Promise<void> {
         console.log('isUserSignedIn function called')
@@ -52,6 +34,8 @@ class Login extends Component {
             ...this.state,
             signedIn: signedIn
         })
+        console.log('Signed In?...', this.state.signedIn)
+        return signedIn
     }
 
     async isSignInPending(): Promise<void> {
@@ -61,14 +45,20 @@ class Login extends Component {
             ...this.state,
             pendingSignIn: pendingSignIn
         })
+        console.log('Pending Sign In?...', this.state.pendingSignIn)
+        return pendingSignIn
     }
 
     async handleLoginClick(e:any): Promise<void> {
         e.preventDefault()
         console.log('Blockstack Login Clicked')
-        console.log(this.state)
-        const data = await this.state.userSession.redirectToSignIn()
-        console.log(data)
+        const session = await this.state.userSession.redirectToSignIn()
+        this.setState({
+            ...this.state,
+            session: session
+        })
+            // .then(console.log)
+            // console.log(data)
         //     .then((res: { authToken: any; userSession: any; userName: any; }) => {
         //         console.log('result', res);
         //         this.props.history.push({
@@ -78,80 +68,6 @@ class Login extends Component {
         //     }) //{ authToken:string, authTokenSecret:string, userName:string, userID:string }
         // .catch((err: any) => console.log(err));
     }
-    
-
-    // handleClick2 = async (e: any) => {
-    //     const { userSession } = this.state
-    //     // const { userSession } = this.props
-    //     const userData1 = userSession.isUserSignedIn()
-    //     const userData2 = userSession.isSignInPending()
-    //     console.log(userData1, " - Signed In?")
-    //     console.log(userData2, " - Pending Sign In?")
-    //     this.setState({ loading: true})
-    //     if((!userData1 && !userData2) || (!userData1 && userData2)) {
-    //         debugger
-    //         try {
-    //             await this.userPendingSignIn()
-    //         } catch (err) {
-    //             await this.userPendingSignIn()
-    //         }
-    //         debugger
-    //         if((!userData1 && !userData2) || (!userData1 && userData2)) {
-            
-    //             try {
-    //                 await this.userPendingSignIn()
-    //             } catch (err) {
-    //                 await this.userPendingSignIn()
-    //             }
-    //             if(userData1){
-    //                 debugger
-    //                 this.completedSignIn()
-    //             }
-    //         }
-            
-    //     }
-    //     debugger
-    //         if((!userData1 && !userData2) || (!userData1 && userData2)) {
-            
-    //             try {
-    //                 await this.userPendingSignIn()
-    //             } catch (err) {
-    //                 await this.userPendingSignIn()
-    //             }
-    //             if(userData1){
-    //                 debugger
-    //                 this.completedSignIn()
-    //             }
-    //         }
-    //         this.setState({ loading: false})
-    // }
-
-    // userPendingSignIn = async () => {
-    //     const { userSession } = this.state
-    //     // const history = this.props
-    //     const userData1 = userSession.isUserSignedIn()
-    //     const userData2 = userSession.isSignInPending()
-    //     console.log(userData1, " - Signed In?")
-    //     console.log(userData2, " - Pending Sign In?")
-    //     this.setState({ loading: true})
-    //     debugger
-    //     try {
-    //         const needThisData = await userSession.handlePendingSignIn()
-    //         console.log(needThisData)
-    //         // history.push('/');
-    //         // tpreventDefault()
-    //         // history.pushState(needThisData, 'App', '/')
-    //         // this.props.history.push('/map')
-    //         this.setState({
-    //             ...this.state,
-    //             needThisData: needThisData
-    //         })
-    //         console.log(this.state.needThisData)
-            
-    //     } catch(err) {
-    //         userSession.redirectToSignIn()
-    //     }
-    // }
 
     render() {
         return (
@@ -165,7 +81,6 @@ class Login extends Component {
                 <IonContent className="ion-padding">
                     <IonRow>
                         <IonCol className="text-center">
-                            {/* <IonImg className="title-img" src="assets/capacitor.png" ></IonImg> */}
                         </IonCol>
                     </IonRow>
                     <IonRow>
@@ -173,16 +88,10 @@ class Login extends Component {
                             <IonText className="title"> Blockstack Login in Ionic/Capacitor App </IonText>
                         </IonCol>
                     </IonRow>
-    
-                    {/* <IonButton className="login-button" onClick={() => this.signIn()} expand="full" fill="solid" color="primary"> Login with Twitter</IonButton> */}
 
                     <IonRow class="ion-justify-content-center" style={{ 'margin': '40% auto' }}>
                         <IonCol size='auto'>
-                            {/* {(loading) ? <Loading /> : */}
-                                {/* (this.state.userSession.isSignInPending()) ? (this.handleClick2(null)) : */}
-                                    <BlockstackButton onClick={(e) => {this.handleLoginClick(e)}} />
-                                    <BlockstackButton onClick={(e) => {this.signInTesting(e)}} />
-                            {/* } */}
+                            <BlockstackButton onClick={(e) => {this.handleLoginClick(e)}} />
                         </IonCol>
                     </IonRow>
 
@@ -199,7 +108,7 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withIonLifeCycle(Login);
 
 // import {
 //     IonCard,

@@ -2,7 +2,7 @@ import React from 'react';
 import { Plugins } from '@capacitor/core';
 import { IonContent, IonGrid, IonRow, IonCol, withIonLifeCycle } from '@ionic/react';
 import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl"; //Source
-// import Loading from '../loading/Loading'
+import Loading from '../loading/Loading'
 // import './Mapp.css';
 import { coordinatesData } from '../../utils/data';
 
@@ -198,7 +198,7 @@ class Mapp extends React.Component {
                     <IonGrid>
                         <IonRow class="ion-justify-content-center" style={{ 'margin': '40% auto' }}>
                             <IonCol size='auto'>
-                                {/* <Loading /> */}
+                                <Loading />
                             </IonCol>
                         </IonRow>
                     </IonGrid>

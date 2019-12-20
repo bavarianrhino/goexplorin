@@ -145,10 +145,10 @@ class Mapp extends React.Component {
         console.log("Cleared Watch Process - ", watchId)
     }
     
-    lookAtPosition() {
+    lookAtPosition = async () => {
         try {
             // eslint-disable-next-line
-            const id = Plugins.Geolocation.watchPosition({
+            const id = await Plugins.Geolocation.watchPosition({
                 enableHighAccuracy: true,
                 maximumAge: 10000,
                 requireAltitude: false,

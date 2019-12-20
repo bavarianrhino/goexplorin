@@ -41,8 +41,8 @@ class MappView extends React.Component {
         // const userSession = new UserSession({ appConfig })
         const userSession = this.props
         // const username = this.props.userSession.loadUserData()
-        console.log(userSession)
-        console.log(this.state.userSession)
+        // console.log(userSession)
+        // console.log(this.state.userSession)
         // const { userSession } = this.props
         // console.log(userSesssion)
         // this.setState({
@@ -54,10 +54,10 @@ class MappView extends React.Component {
     }
     render() {
         const { userSession } = this.state
-        console.log(userSession)
+        // console.log(userSession)
         const session = this.props
-        console.log(session)
-        console.log(sessionStorage)
+        // console.log(session)
+        // console.log(sessionStorage)
         return (
             <IonPage id="map-view">
                 <IonHeader>

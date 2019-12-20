@@ -76,16 +76,18 @@ class Mapp extends React.Component {
             longitude: 0
         },
         watchId : '0',
-        coordinatesTotalArea: [ [ [-170, 80], [-100, 85], [-30, 85], [10, 85], [ 100, 85 ], [ 170, 80], [ 175, 40], [175, 5], [175, -40], [170, -80], [100, -85], [10, -85], [-30, -85], [-100, -85], [-170, -80], [-175, -40], [-175, -5], [-175, 40], [-170, 79] ], [ [ -84.407, 34.171 ], [ -84.405, 34.171 ], [ -84.405, 34.169 ], [ -84.407, 34.169 ] ] ] //-84.406, 34.170
+        // coordinatesTotalArea: [ [ [-170, 80], [-100, 85], [-30, 85], [10, 85], [ 100, 85 ], [ 170, 80], [ 175, 40], [175, 5], [175, -40], [170, -80], [100, -85], [10, -85], [-30, -85], [-100, -85], [-170, -80], [-175, -40], [-175, -5], [-175, 40], [-170, 79] ], [ [ -84.407, 34.171 ], [ -84.405, 34.171 ], [ -84.405, 34.169 ], [ -84.407, 34.169 ] ] ] //-84.406, 34.170
+        coordinatesTotalArea: [ [-170, 80], [-100, 85], [-30, 85], [10, 85], [ 100, 85 ], [ 170, 80], [ 175, 40], [175, 5], [175, -40], [170, -80], [100, -85], [10, -85], [-30, -85], [-100, -85], [-170, -80], [-175, -40], [-175, -5], [-175, 40], [-170, 79] ],
+        watchedCoords: []
     }
 
     ionViewWillEnter() {
         this.ionViewWillEnterLog()
-        this.getCurrentPosition()
+        // this.getCurrentPosition()
         this.lookAtPosition()
-        console.log(this.props)
-        const userSession = this.props
-        console.log(userSession)
+        // console.log(this.props)
+        // const userSession = this.props
+        // console.log(userSession)
     }
 
     ionViewDidEnter() {
@@ -154,14 +156,25 @@ class Mapp extends React.Component {
             }, (position, error) => {
                 console.log("Currently Watching Location - ", position.coords)
                 console.log('Got Watch Data ID - ', id);
+                const lat = Math.round(position.coords.latitude*1000)/1000
+                const long = Math.round(position.coords.longitude*1000)/1000
+                // [ -84.407, 34.171 ], [ -84.405, 34.171 ], [ -84.405, 34.169 ], [ -84.407, 34.169 ] ] ] //-84.406, 34.170
+                const NW = [ Math.sign(long) === -1 ? Math.round((long - 0.001)*1000)/1000 : Math.round((long + 0.001)*1000)/1000, Math.sign(lat) === -1 ? Math.round((lat - 0.001)*1000)/1000 : Math.round((lat + 0.001)*1000)/1000 ]
+                const NE = [ Math.sign(long) === -1 ? Math.round((long + 0.001)*1000)/1000 : Math.round((long - 0.001)*1000)/1000, Math.sign(lat) === -1 ? Math.round((lat - 0.001)*1000)/1000 : Math.round((lat + 0.001)*1000)/1000 ]
+                const SE = [ Math.sign(long) === -1 ? Math.round((long + 0.001)*1000)/1000 : Math.round((long - 0.001)*1000)/1000, Math.sign(lat) === -1 ? Math.round((lat + 0.001)*1000)/1000 : Math.round((lat - 0.001)*1000)/1000 ]
+                const SW = [ Math.sign(long) === -1 ? Math.round((long - 0.001)*1000)/1000 : Math.round((long + 0.001)*1000)/1000, Math.sign(lat) === -1 ? Math.round((lat + 0.001)*1000)/1000 : Math.round((lat - 0.001)*1000)/1000 ]
                 this.setState({
                     ...this.state,
+                    watchId: id,
                     coordsCurrentLocation: {
-                        latitude: Math.round(position.coords.latitude*1000)/1000,
-                        longitude: Math.round(position.coords.longitude*1000)/1000
+                        latitude: lat,
+                        longitude: long
                     },
-                    watchId: id
+                    // Trying to overwrite any duplicates but not destroy any existing coords
+                    watchedCoords: [[...NW], [...NE], [...SE], [...SW]]
                 })
+                console.log(NW, NE, SE, SW)
+                console.log(this.state)
                 this.toggleLoadingState()
             })
         } catch(error) {
@@ -188,7 +201,7 @@ class Mapp extends React.Component {
     }
 
     render () {
-        const { viewport, loadingMap, coordinatesTotalArea } = this.state
+        const { viewport, loadingMap, coordinatesTotalArea, watchedCoords } = this.state
         const Map = ReactMapboxGl({ accessToken: 'pk.eyJ1IjoicnlhbnJpZXNlbmJlcmdlciIsImEiOiJjazNkNGhwYW4wdXJ1M2RudjJycHFxbjhuIn0.zv807JC8_CQB1XnVGTaUqQ' });
         const polygonpaint = {'fill-opacity': 0.5, 'fill-color': '#f32e5a' }
         const mapStyle = { overflow: "visible", height: "87vh" };
@@ -213,7 +226,7 @@ class Mapp extends React.Component {
                     // className='map-div'
                     >
                     <Layer type="fill" paint={polygonpaint} > 
-                        <Feature coordinates={coordinatesTotalArea}/>
+                        <Feature coordinates={[coordinatesTotalArea, watchedCoords]}/>
                     </Layer>
                 </Map>
                 }

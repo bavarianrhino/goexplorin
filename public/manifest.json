@@ -1,21 +1,22 @@
 {
-    "short_name": "GoExplorin",
-    "name": "GoExplorin App",
-    "icons": [
-    {
-    "src": "assets/icon/explore-icon.jpg",
-    "sizes": "600x600",
-    "type": "image/jpg"
-    },
-    {
-      "src": "assets/icon/icon.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "maskable"
-    }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff"
+    "short_name": "Explorin",
+    "name": "Explorin",
+    "description": "Go Explorin and see how much of the earth can you uncover?",
+        "icons": [
+            {
+                "src": "assets/icon/favicon.png",
+                "sizes": "512x512",
+                "type": "image/png"
+            },
+            {
+                "src": "assets/icon/binoculars.png",
+                "type": "image/png",
+                "sizes": "512x512",
+                "purpose": "maskable"
+            }
+        ],
+    "start_url": "./",
+    "display": "standalone",
+    "theme_color": "#35363a",
+    "background_color": "#35363a"
 }

@@ -204,7 +204,7 @@ class Mapp extends React.Component {
         const { viewport, loadingMap, coordinatesTotalArea, watchedCoords } = this.state
         const Map = ReactMapboxGl({ accessToken: 'pk.eyJ1IjoicnlhbnJpZXNlbmJlcmdlciIsImEiOiJjazNkNGhwYW4wdXJ1M2RudjJycHFxbjhuIn0.zv807JC8_CQB1XnVGTaUqQ' });
         const polygonpaint = {'fill-opacity': 0.5, 'fill-color': '#f32e5a' }
-        const mapStyle = { overflow: "visible", height: "87vh" };
+        const mapStyle = { overflow: "visible", height: "93vh" };
         return (
             <IonContent>
                 {(loadingMap) ? 

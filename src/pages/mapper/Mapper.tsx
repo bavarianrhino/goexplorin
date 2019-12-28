@@ -4,6 +4,7 @@ import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonPage, wi
 import PropTypes from 'prop-types'
 import { appConfig } from '../../utils/constants'; //appConfig
 import { UserSession, Person } from 'blockstack'
+import { Header } from "../../components/UI/Header";
 // import { Location } from '../models/Location';
 // import { connect } from '../data/connect';
 // import * as selectors from '../data/selectors';
@@ -11,35 +12,39 @@ import { UserSession, Person } from 'blockstack'
 
 // interface OwnProps { }
 // interface StateProps {
-//   locations: Location[];
+    //   locations: Location[];
 //   mapCenter: Location;
 // }
 // interface DispatchProps { }
 // interface MapViewProps extends OwnProps, StateProps, DispatchProps { };
 // const MappView: React.FC<MapViewProps> = ({ locations, mapCenter }) => {
-// const MappView: React.FC = () => {
+    // const MappView: React.FC = () => {
+type Props = {
+    title: string;
+};
+export const Mapper = ({ title }: Props) => {
 
-class MappView extends React.Component {
+// class MappView extends React.Component {
 
-    state = {
-        userSession: this.props
+    // state = {
+        // userSession: this.props
         // person: null,
         // username: null
-    }
+    // }
 
     // static propTypes = {
     //     userSession: PropTypes.object.isRequired,
     //     history: PropTypes.object.isRequired
     //   }
 
-    ionViewWillEnter() {
-        this.getUserSession()
+    // ionViewWillEnter() {
+        // this.getUserSession()
         
-    }
+    // }
     
-    getUserSession = () => {
+    // getUserSession = () => {
         // const userSession = new UserSession({ appConfig })
-        const userSession = this.props
+        // const userSession = this.props
         // const username = this.props.userSession.loadUserData()
         // console.log(userSession)
         // console.log(this.state.userSession)
@@ -51,31 +56,34 @@ class MappView extends React.Component {
         //     // person: new Person(userSession.loadUserData().profile),
         //     username: userSession.loadUserData().username
         // })
-    }
-    render() {
-        const { userSession } = this.state
+    // }
+    // render() {
+        // const { userSession } = this.state
         // console.log(userSession)
-        const session = this.props
+        // const session = this.props
         // console.log(session)
         // console.log(sessionStorage)
         return (
             <IonPage id="map-view">
-                <IonHeader>
-                    <IonToolbar>
-                        <IonButtons slot="start">
-                            <IonMenuButton></IonMenuButton>
-                        </IonButtons>
-                        <IonTitle>Map</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
+                <Header title={title}/>
 
                 {/* <IonContent class="map-page"> */}
                     {/* <Map locations={locations} mapCenter={mapCenter} /> */}
-                    <Mapp userSession={userSession} />
+                    {/* <Mapp userSession={userSession} /> */}
+                    <Mapp />
                 {/* </IonContent> */}
             </IonPage>
         )
-    };
-}
+    // };
+};
            
-export default withIonLifeCycle(MappView);
+export default Mapper;
+// export default withIonLifeCycle(Mapper);
+                // <IonHeader>
+                //     <IonToolbar>
+                //         <IonButtons slot="start">
+                //             <IonMenuButton></IonMenuButton>
+                //         </IonButtons>
+                //         <IonTitle>Map</IonTitle>
+                //     </IonToolbar>
+                // </IonHeader>

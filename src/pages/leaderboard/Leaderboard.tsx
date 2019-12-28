@@ -1,25 +1,24 @@
 import React from 'react';
 import { IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { Header } from "../../components/UI/Header";
 
-const Tab2: React.FC = () => {
-  return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Leaderboard</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent>
-        <IonList>
-          <IonItem routerLink="/leaderboard/details">
-            <IonLabel>
-              <h2>Go to leaderboard detail</h2>
-            </IonLabel>
-          </IonItem>
-        </IonList>
-      </IonContent>
-    </IonPage>
-  );
+type Props = {
+    title: string;
+};
+  
+export const Leaderboard = ({ title }: Props) => {
+    return (
+        <IonPage>
+            <Header title={title}/>
+            <IonContent>
+                <IonList>
+                    <IonItem routerLink="/leaderboard/details">
+                        <IonLabel><h2>Go to leaderboard detail</h2></IonLabel>
+                    </IonItem>
+                </IonList>
+            </IonContent>
+        </IonPage>
+    );
 };
 
-export default Tab2;
+export default Leaderboard;

@@ -1,6 +1,6 @@
 {
-  "appId": "com.goexplorin.app",
-  "appName": "goexplorin",
+  "appId": "com.explorin.app",
+  "appName": "explorin",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",

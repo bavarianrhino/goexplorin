@@ -1,6 +1,6 @@
 {
-  "name": "goexplorin",
-  "description": "An Ionic project",
+  "name": "explorin",
+  "description": "Cross Platform Decentralized Application using React/Ionic and BlockStack technology.",
   "author": "Ryan Riesenberger & Will Vega",
   "homepage": "https://goexplorin.com",
   "version": "0.0.1",

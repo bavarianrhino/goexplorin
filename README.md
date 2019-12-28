@@ -1,4 +1,4 @@
-<h1 align="center">GoExplorin</h1>
+<h1 align="center">Go Explorin</h1>
 <p align="center">A cross platform blockstack application....need tagline.</p>
 
 ## 🗺 Live Site
@@ -22,7 +22,7 @@
   
   🚀<b>Deployment</b>
 
-## 💻 Running GoExplorin Locally - Env & Installation
+## 💻 Running Go Explorin Locally - Env & Installation
 
   🔨 <b>Install</b>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Explorin Redirect</title>
+  <title>Go Explorin Redirect</title>
   <script>
   function getParameterByName(name) {
     var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
@@ -9,8 +9,9 @@
   }
 
   var authResponse = getParameterByName('authResponse')
-  window.location="explorinapp:" + authResponse
+  window.location="explorin:" + authResponse
   </script>
 <body>
 </body>
 </html>
+<!-- May need to change window.location -->

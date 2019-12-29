@@ -4,7 +4,7 @@ import { AppConfig } from "blockstack";
 export const useApi = () => {
     const appConfig = new AppConfig(['store_write', 'publish_data'])
     const session = new UserSession({ appConfig });
-    const user = 'Sign In'
+    const user = session.isUserSignedIn() ? session.loadUserData().username.split(".id")[0] : 'No User'
     return {
         session,
         user

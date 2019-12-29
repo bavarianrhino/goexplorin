@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Mapp from './Mapp';
 import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonPage, withIonLifeCycle } from '@ionic/react'; //IonContent,
 import PropTypes from 'prop-types'
 import { appConfig } from '../../utils/constants'; //appConfig
 import { UserSession, Person } from 'blockstack'
-import { Header } from "../../components/UI/Header";
+// import { Header } from "../../components/UI/Header";
+import { Layout } from "../../components/UI/Layout";
+import { useHistory } from "react-router";
 // import { Location } from '../models/Location';
 // import { connect } from '../data/connect';
 // import * as selectors from '../data/selectors';
@@ -23,6 +25,10 @@ type Props = {
     title: string;
 };
 export const Mapper = ({ title }: Props) => {
+const [dataSearch, setDataSearch] = useState([]);
+const history = useHistory();
+console.log(dataSearch);
+console.log("From Mapper", history);
 
 // class MappView extends React.Component {
 
@@ -64,8 +70,9 @@ export const Mapper = ({ title }: Props) => {
         // console.log(session)
         // console.log(sessionStorage)
         return (
+            <Layout title="Map">
+                <div>
             <IonPage id="map-view">
-                <Header title={title}/>
 
                 {/* <IonContent class="map-page"> */}
                     {/* <Map locations={locations} mapCenter={mapCenter} /> */}
@@ -73,6 +80,8 @@ export const Mapper = ({ title }: Props) => {
                     <Mapp />
                 {/* </IonContent> */}
             </IonPage>
+            </div>
+            </Layout>
         )
     // };
 };

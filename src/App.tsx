@@ -34,7 +34,7 @@ import NotFoundPage from './pages/logout/Logout'
 const appPages: AppPage[] = [
     {
       title: "Map",
-      url: "/mapper",
+      url: "/",
       icon: map
     },
     {
@@ -61,12 +61,12 @@ const App: React.FC = () => (
                 <Menu appPages={appPages} />
                 <IonRouterOutlet id="main">
                     <Route path="*" component={NotFoundPage} />
+                    <Route path="/" component={Mapper} exact={true} />
                     <Route path="/login" component={Login} exact={true} />
+                    <Route path="/logout" component={Logout} />
                     <Route path="/leaderboard" component={Leaderboard} exact={true} />
                     <Route path="/leaderboard/details" component={Details} />
-                    <Route path="/mapper" component={Mapper} exact={true} />
-                    <Route path="/logout" component={Logout} />
-                    <Route path="/" render={() => <Redirect to="/mapper" />} exact={true} />
+                    {/* <Route path="/" render={() => <Redirect to="/mapper" />} exact={true} /> */}
                     {/* <Route path="/" render={() => <Redirect to="/login" />} exact={true} /> */}
                 </IonRouterOutlet>
             </IonSplitPane>

@@ -12,7 +12,7 @@ export const Layout = ({ children, title }: Props) => {
     <IonPage>
       <Header title={title} />
       <IonContent>
-        <div style={{ margin: 10 }}>{children}</div>
+        <div>{children}</div>
       </IonContent>
     </IonPage>
   );

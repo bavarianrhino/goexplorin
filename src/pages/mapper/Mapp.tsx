@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Plugins } from '@capacitor/core';
 import { IonContent, IonGrid, IonRow, IonCol, withIonLifeCycle } from '@ionic/react';
 import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl"; //Source
 import Loading from '../loading/Loading'
+import { useHistory } from "react-router";
 // import './Mapp.css';
 import { coordinatesData } from '../../utils/data';
 
@@ -82,6 +83,10 @@ class Mapp extends React.Component {
     }
 
     ionViewWillEnter() {
+        // const [dataSearch, setDataSearch] = useState([]);
+        // const history = useHistory();
+        // console.log("FROM MAPP",dataSearch);
+        // console.log("FROM MAPP",history);
         this.ionViewWillEnterLog()
         // this.getCurrentPosition()
         this.lookAtPosition()

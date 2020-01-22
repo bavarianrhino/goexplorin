@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
+import React, { Component }  from 'react';
 import { Plugins } from '@capacitor/core';
-import { IonContent, IonGrid, IonRow, IonCol, withIonLifeCycle } from '@ionic/react';
+import { IonContent, IonGrid, IonRow, IonCol, withIonLifeCycle, IonButton } from '@ionic/react';
 import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl"; //Source
 import Loading from '../loading/Loading'
-import { useHistory } from "react-router";
+import { Layout } from "../../components/UI/Layout";
+
+// import { useHistory } from "react-router";
 // import './Mapp.css';
 import { coordinatesData } from '../../utils/data';
 
@@ -62,8 +65,30 @@ import { coordinatesData } from '../../utils/data';
 // console.log(isCoordinateInsidePitch(lattt, looong, arrayla, arraylo, lleng));
 // console.log(isValidCoordinate(lattt, looong));
 
+// import { useState, useEffect } from 'react';
 
-class Mapp extends React.Component {
+// const Dashboard = props => {
+//   const classes = useStyles();
+//   const [token, setToken] = useState(null);
+//   useEffect(() => {
+//      async function getToken() {
+//          const token = await fetchKey(props.auth);
+//          setToken(token);
+//      }
+//      getToken();
+//   }, [])
+
+
+//   return (
+//   ... rest of the functional component's code
+//   // Remember to handle the first render when to
+// const Mapp: React.FC = () => {
+    class Mapp extends Component {
+    // const [loadingMap, setLoadingMap] = useState(true);
+
+    // useEffect(() => {
+    //   document.title = `You clicked ${count} times`;
+    // });
 
     state = {
         loadingMap: true,
@@ -82,17 +107,11 @@ class Mapp extends React.Component {
         watchedCoords: []
     }
 
+    // ionViewWillEnter(() => {
     ionViewWillEnter() {
-        // const [dataSearch, setDataSearch] = useState([]);
-        // const history = useHistory();
-        // console.log("FROM MAPP",dataSearch);
-        // console.log("FROM MAPP",history);
         this.ionViewWillEnterLog()
         // this.getCurrentPosition()
         this.lookAtPosition()
-        // console.log(this.props)
-        // const userSession = this.props
-        // console.log(userSession)
     }
 
     ionViewDidEnter() {
@@ -103,9 +122,10 @@ class Mapp extends React.Component {
         this.ionViewWillLeaveLog()
         this.clearWatchPosition()
     }
-
+    
     ionViewDidLeave() {
         this.ionViewDidLeaveLog()
+        this.clearWatchPosition()
     }
 
     ionViewWillEnterLog = () => { console.log('xxxxxxxxxxionViewWillEnterLogxxxxxxxxxxxx')}
@@ -210,32 +230,36 @@ class Mapp extends React.Component {
         const Map = ReactMapboxGl({ accessToken: 'pk.eyJ1IjoicnlhbnJpZXNlbmJlcmdlciIsImEiOiJjazNkNGhwYW4wdXJ1M2RudjJycHFxbjhuIn0.zv807JC8_CQB1XnVGTaUqQ' });
         const polygonpaint = {'fill-opacity': 0.5, 'fill-color': '#f32e5a' }
         const mapStyle = { overflow: "visible", height: "93vh" };
+        // const container = 'mapid'
         return (
-            <IonContent>
-                {(loadingMap) ? 
+            <Layout title="Map">
+            <IonContent id='mapid' fullscreen={true}>
+                {(loadingMap) ? (
                     <IonGrid>
                         <IonRow class="ion-justify-content-center" style={{ 'margin': '40% auto' }}>
                             <IonCol size='auto'>
+                                <IonButton>
+
+                                </IonButton>
                                 <Loading />
                             </IonCol>
                         </IonRow>
                     </IonGrid>
-                :
+                ) : (
                 <Map
-                    style={viewport.darkMode}
-                    containerStyle={mapStyle}
-                    zoom={[viewport.zoom]}
-                    center={this.setMapCenter()}
-                    // containerStyle={{ height: '100%', width: '100%' }}
-                    // onStyleLoad={this.onStyleLoad}
-                    // className='map-div'
-                    >
+                style={viewport.lightMode}
+                containerStyle={mapStyle}
+                zoom={[viewport.zoom]}
+                center={this.setMapCenter()} // container={'mapid'} // onStyleLoad={this.onStyleLoad} // className='map-div'
+                >
                     <Layer type="fill" paint={polygonpaint} > 
                         <Feature coordinates={[coordinatesTotalArea, watchedCoords]}/>
                     </Layer>
                 </Map>
+                )
                 }
             </IonContent>
+                </Layout>
         )
     }
 }

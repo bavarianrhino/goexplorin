@@ -9,7 +9,8 @@ import { AppPage } from './declarations';
 //--------- Pages ---------//
 import Login from './pages/login/Login'
 import Leaderboard from './pages/leaderboard/Leaderboard'
-import Mapper from './pages/mapper/Mapper'
+// import Mapper from './pages/mapper/Mapper'
+import Mapp from './pages/mapper/Mapp'
 import Logout from './pages/logout/Logout'
 import Menu from "./components/Menu";
 
@@ -61,7 +62,7 @@ const App: React.FC = () => (
                 <Menu appPages={appPages} />
                 <IonRouterOutlet id="main">
                     <Route path="*" component={NotFoundPage} />
-                    <Route path="/" component={Mapper} exact={true} />
+                    <Route path="/" component={Mapp} exact={true} />
                     <Route path="/login" component={Login} exact={true} />
                     <Route path="/logout" component={Logout} />
                     <Route path="/leaderboard" component={Leaderboard} exact={true} />
